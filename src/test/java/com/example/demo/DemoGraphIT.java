@@ -15,7 +15,7 @@ import org.testcontainers.utility.DockerImageName;
 
 @Testcontainers
 @SpringBootTest
-public class MyAppIT {
+public class DemoGraphIT {
 
     @Container
     private static final OrientDBContainer CONTAINER = new OrientDBContainer(DockerImageName.parse("orientdb:3.1.9").asCompatibleSubstituteFor("orientdb"));
