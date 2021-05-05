@@ -1,3 +1,3 @@
 # demoGraph
 
-this is my project for my internship is SAP
+this is my project for my internship in SAP
