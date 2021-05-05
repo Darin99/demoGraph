@@ -25,7 +25,7 @@ public class PersonClassTest {
 
     @Before
     public void buildPerson() {
-        person = new Person.PersonBuilder().name(NAME).position(POSITION)
+        person = new Person().builder().name(NAME).position(POSITION)
                 .company(COMPANY).team(TEAM).persons(PERSONS).build();
     }
 
