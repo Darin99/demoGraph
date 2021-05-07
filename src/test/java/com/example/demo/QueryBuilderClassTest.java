@@ -32,7 +32,7 @@ public class QueryBuilderClassTest {
     }
 
     @Test
-    public void givenCorrectValuesWhenBuildingQueryThenCorrec() {
+    public void whenValidDataIsPassed_thenValidEdgeQueryShouldBeReturned() {
         Assert.assertEquals("CREATE EDGE worksIn UPSERT FROM (SELECT FROM Employee WHERE name = 'Darin') TO (SELECT FROM Company WHERE name = 'Sap labs Bulgaria')",
                 queryBuilder.withCreateClause().appendEdgeWord().appendEdge(EDGE).withUpsertClause().withFromClause().appendOpenBracket()
                         .withSelectClause().withFromClause().appendVertex(EMPLOYEE_VERTEX).withWhereClause().appendPropAndValue(PROPERTY, PROPERTY_VALUE)
@@ -41,7 +41,7 @@ public class QueryBuilderClassTest {
     }
 
     @Test(expected = AssertionError.class)
-    public void givenCorrectValuesWhenBuildingQueryThenThrowsAssertionError() {
+    public void whenInvalidDataIsPassedToEdgeQuery_thenExpectAssertionError() {
         Assert.assertEquals("CREATE EDGE worksIn UPSERT FROM (SELECT FROM Employee WHERE name = 'Darin') TO (SELECT FROM Company WHERE name = 'Sap labs Bulgaria')",
                 queryBuilder.withCreateClause().appendEdgeWord().appendEdge(WRONG_EDGE).withUpsertClause().withFromClause().appendOpenBracket()
                         .withSelectClause().withFromClause().appendVertex(MANAGER_VERTEX).withWhereClause().appendPropAndValue(WRONG_PROPERTY, WRONG_PROPERTY_VALUE)
@@ -50,14 +50,14 @@ public class QueryBuilderClassTest {
     }
 
     @Test
-    public void givenCorrectValuesWhenBuildingQueryThenCorrect() {
+    public void whenValidDataIsPassed_thenValidVertexQueryShouldBeReturned() {
         Assert.assertEquals("UPDATE Employee SET name = 'Darin' UPSERT WHERE name = 'Darin'",
                 queryBuilder.withUpdateClause().appendVertex(EMPLOYEE_VERTEX).withSetClause().appendPropAndValue(PROPERTY, PROPERTY_VALUE)
                         .withUpsertClause().withWhereClause().appendPropAndValue(PROPERTY, PROPERTY_VALUE).build());
     }
 
     @Test(expected = AssertionError.class)
-    public void givenCorrectValuesWhenBuildingQueryThrowsAssertionError() {
+    public void whenInvalidDataIsPassedToVertexQuery_thenExpectAssertionError() {
         Assert.assertEquals("UPDATE Employee SET name = 'Darin' UPSERT WHERE name = 'Darin'",
                 queryBuilder.withUpdateClause().appendVertex(MANAGER_VERTEX).withSetClause().appendPropAndValue(WRONG_PROPERTY, WRONG_PROPERTY_VALUE)
                         .withUpsertClause().withWhereClause().appendPropAndValue(WRONG_PROPERTY, WRONG_PROPERTY_VALUE).build());
