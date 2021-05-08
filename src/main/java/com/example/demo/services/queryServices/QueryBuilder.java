@@ -9,7 +9,7 @@ public class QueryBuilder {
     private static final String EQUAL_SIGN = "=";
     private static final String SEPARATOR = " ";
 
-    private final StringBuilder builder;
+    private StringBuilder builder;
 
     public QueryBuilder() {
         builder = new StringBuilder();

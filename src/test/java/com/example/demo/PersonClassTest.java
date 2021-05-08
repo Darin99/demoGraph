@@ -17,11 +17,21 @@ import java.util.List;
 public class PersonClassTest {
 
     private Person person;
+
     private static final String NAME = "Darin";
+    private static final String WRONG_NAME = "Tom";
+
     private static final String POSITION = "Employee";
+    private static final String WRONG_POSITION = "Manager";
+
     private static final String COMPANY = "Sap labs Bulgaria";
+    private static final String WRONG_COMPANY = "MentorMate";
+
     private static final String TEAM = "CLM ilm Sof-dev";
+    private static final String WRONG_TEAM = "MTE";
+
     private static final List<String> PERSONS = new ArrayList<>();
+    private static final List<String> WRONG_PERSONS = Arrays.asList("Simeon", "George");
 
     @Before
     public void buildPerson() {
@@ -30,77 +40,77 @@ public class PersonClassTest {
     }
 
     @Test
-    public void givenCorrectNameWhenGettingItThenCorrect() {
+    public void whenValidNameIsPassed_thenItShouldBeReturned() {
         Assert.assertEquals(NAME, person.getName());
     }
 
     @Test(expected = ComparisonFailure.class)
-    public void givenWrongNameWhenGettingItThenThrowsComparisonFailureError() {
-        Assert.assertEquals("Tom", person.getName());
-    }
-
-    @Test(expected = AssertionError.class)
-    public void givenNullNameWhenGettingItThenThrowsAssertionError() {
-        Assert.assertNull(person.getName());
+    public void whenInvalidNameIsPassed_thenExpectComparisonFailureError() {
+        Assert.assertEquals(WRONG_NAME, person.getName());
     }
 
     @Test
-    public void givenCorrectPositionWhenGettingItThenCorrect() {
+    public void whenValidNameIsPassed_thenItShouldNotBeNull() {
+        Assert.assertNotNull(person.getName());
+    }
+
+    @Test
+    public void whenValidPositionIsPassed_thenItShouldBeReturned() {
         Assert.assertEquals(POSITION, person.getPosition());
     }
 
     @Test(expected = ComparisonFailure.class)
-    public void givenWrongPositionWhenGettingItThenThrowsComparisonFailureError() {
-        Assert.assertEquals("Manager", person.getPosition());
-    }
-
-    @Test(expected = AssertionError.class)
-    public void givenNullPositionWhenGettingItThenThrowsAssertionError() {
-        Assert.assertNull(person.getPosition());
+    public void whenInvalidPositionIsPassed_thenExpectComparisonFailureError() {
+        Assert.assertEquals(WRONG_POSITION, person.getPosition());
     }
 
     @Test
-    public void givenCorrectCompanyWhenGettingItThenCorrect() {
+    public void whenValidPositionIsPassed_thenItShouldNotBeNull() {
+        Assert.assertNotNull(person.getPosition());
+    }
+
+    @Test
+    public void whenValidCompanyIsPassed_thenItShouldBeReturned() {
         Assert.assertEquals(COMPANY, person.getCompany());
     }
 
     @Test(expected = ComparisonFailure.class)
-    public void givenWrongCompanyWhenGettingItThenThrowsComparisonFailureError() {
-        Assert.assertEquals("MentorMate", person.getCompany());
-    }
-
-    @Test(expected = AssertionError.class)
-    public void givenNullCompanyWhenGettingItThenThrowsAssertionError() {
-        Assert.assertNull(person.getCompany());
+    public void whenInvalidCompanyIsPassed_thenExpectComparisonFailureError() {
+        Assert.assertEquals(WRONG_COMPANY, person.getCompany());
     }
 
     @Test
-    public void givenCorrectTeamWhenGettingItThenCorrect() {
+    public void whenValidCompanyIsPassed_thenItShouldNotBeNull() {
+        Assert.assertNotNull(person.getCompany());
+    }
+
+    @Test
+    public void whenValidTeamIsPassed_thenItShouldBeReturned() {
         Assert.assertEquals(TEAM, person.getTeam());
     }
 
     @Test(expected = ComparisonFailure.class)
-    public void givenWrongTeamWhenGettingItThenThrowsComparisonFailureError() {
-        Assert.assertEquals("MTE", person.getTeam());
-    }
-
-    @Test(expected = AssertionError.class)
-    public void givenNullTeamWhenGettingItThenThrowsAssertionError() {
-        Assert.assertNull(person.getTeam());
+    public void whenInvalidTeamIsPassed_thenExpectComparisonFailureError() {
+        Assert.assertEquals(WRONG_TEAM, person.getTeam());
     }
 
     @Test
-    public void givenCorrectPersonsWhenGettingItThenCorrect() {
+    public void whenValidTeamIsPassed_thenItShouldNotBeNull() {
+        Assert.assertNotNull(person.getTeam());
+    }
+
+    @Test
+    public void whenValidPersonsArePassed_thenTheyShouldBeReturned() {
         Assert.assertEquals(PERSONS, person.getPersons());
     }
 
     @Test(expected = AssertionError.class)
-    public void givenWrongPersonsWhenGettingItThenThrowsComparisonFailureError() {
-        Assert.assertEquals(Arrays.asList("Simeon", "George"), person.getPersons());
+    public void whenInvalidPersonsArePassed_thenExpectAssertionError() {
+        Assert.assertEquals(WRONG_PERSONS, person.getPersons());
     }
 
-    @Test(expected = AssertionError.class)
-    public void givenNullPersonsWhenGettingItThenThrowsAssertionError() {
-        Assert.assertNull(person.getPersons());
+    @Test
+    public void whenValidPersonsArePassed_thenTheyShouldNotBeNull() {
+        Assert.assertNotNull(person.getPersons());
     }
 }
