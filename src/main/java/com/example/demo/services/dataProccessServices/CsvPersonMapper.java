@@ -6,9 +6,10 @@ import com.example.demo.services.dataProccessServices.interfaces.PersonMapper;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,6 +20,8 @@ public class CsvPersonMapper implements PersonMapper {
     private File file;
 
     private DataReader<File> dataReader;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(CsvPersonMapper.class);
 
     public CsvPersonMapper(File file) {
         this.file = file;
@@ -32,10 +35,10 @@ public class CsvPersonMapper implements PersonMapper {
 
         try {
             new CSVParser(this.dataReader.read(file), CSVFormat.DEFAULT.withHeader("name", "position", "companyName", "teamName", "persons")
-                    .withFirstRecordAsHeader().withTrim()).getRecords()
-                    .forEach(r -> persons.add(new Person().builder().name(r.get("name")).position(r.get("position")).company(r.get("companyName"))
-                            .team(r.get("teamName")).persons(getPersons(r)).build()));
-        } catch (IOException ignored) {
+                    .withFirstRecordAsHeader().withTrim()).getRecords().forEach(r -> persons.add(new Person().builder().name(r.get("name"))
+                    .position(r.get("position")).company(r.get("companyName")).team(r.get("teamName")).persons(getPersons(r)).build()));
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
         }
         return persons;
     }

@@ -85,15 +85,14 @@ public class DemoGraphIT {
     }
 
     @Test
-    public void givenCorrectDataParWhenCheckingPropertiesThenCorrect() {
+    public void whenDbIsCreatedSuccessfully_thenShouldNotBeNull() {
         try (ODatabaseSession session = oDatabasePool.acquire()) {
-            long count = session.command("SELECT COUNT(*) FROM V WHERE name IS DEFINED").next().getProperty("COUNT(*)");
-            Assertions.assertEquals(13, count);
+            Assertions.assertNotNull(session);
         }
     }
 
     @Test
-    public void givenCorrectDataWhenParsingFilesThenCorrect() {
+    public void whenValidDataIsPassed_thenCountOfVerticesShouldBeValid() {
         try (ODatabaseSession session = oDatabasePool.acquire()) {
             long count = session.command("SELECT COUNT(*) FROM V").next().getProperty("COUNT(*)");
             Assertions.assertEquals(13, count);
@@ -101,7 +100,7 @@ public class DemoGraphIT {
     }
 
     @Test
-    public void givenCorrectDataWhenCreatingEdgeThenCorrect() {
+    public void whenValidDataIsPassed_thenCountOfEdgesShouldBeValid() {
         try (ODatabaseSession session = oDatabasePool.acquire()) {
             long count = session.command("SELECT COUNT(*) FROM E").next().getProperty("COUNT(*)");
             Assertions.assertEquals(23, count);
