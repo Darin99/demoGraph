@@ -1,7 +1,4 @@
-FROM maven:3.8.1-jdk-11
+FROM adoptopenjdk/openjdk11
 RUN mkdir -p /app
-WORKDIR /app
-COPY pom.xml /app
-RUN mvn clean install
-COPY target/demo-*.jar /app/demo.jar
-ENTRYPOINT ["java","-jar","/app/demo.jar"]
+COPY target/demo-0.0.1-SNAPSHOT.jar /app
+ENTRYPOINT ["java","-jar","/app/demo-0.0.1-SNAPSHOT.jar"]
