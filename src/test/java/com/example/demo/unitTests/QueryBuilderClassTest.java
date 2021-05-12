@@ -1,13 +1,10 @@
-package com.example.demo;
+package com.example.demo.unitTests;
 
 import com.example.demo.services.queryServices.QueryBuilder;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-@RunWith(SpringRunner.class)
 public class QueryBuilderClassTest {
 
     private QueryBuilder queryBuilder;
@@ -26,40 +23,40 @@ public class QueryBuilderClassTest {
     private static final String COMPANY_VERTEX = "Company";
     private static final String COMPANY_NAME = "Sap labs Bulgaria";
 
-    @Before
+    @BeforeEach
     public void createConstructor() {
         queryBuilder = new QueryBuilder();
     }
 
     @Test
     public void whenValidDataIsPassed_thenValidEdgeQueryShouldBeReturned() {
-        Assert.assertEquals("CREATE EDGE worksIn UPSERT FROM (SELECT FROM Employee WHERE name = 'Darin') TO (SELECT FROM Company WHERE name = 'Sap labs Bulgaria')",
+        Assertions.assertEquals("CREATE EDGE worksIn UPSERT FROM (SELECT FROM Employee WHERE name = 'Darin') TO (SELECT FROM Company WHERE name = 'Sap labs Bulgaria')",
                 queryBuilder.withCreateClause().appendEdgeWord().appendEdge(EDGE).withUpsertClause().withFromClause().appendOpenBracket()
                         .withSelectClause().withFromClause().appendVertex(EMPLOYEE_VERTEX).withWhereClause().appendPropAndValue(PROPERTY, PROPERTY_VALUE)
                         .appendCloseBracket().appendToWord().appendOpenBracket().withSelectClause().withFromClause().appendVertex(COMPANY_VERTEX)
                         .withWhereClause().appendPropAndValue(PROPERTY, COMPANY_NAME).appendCloseBracket().build());
     }
 
-    @Test(expected = AssertionError.class)
+    @Test
     public void whenInvalidDataIsPassedToEdgeQuery_thenExpectAssertionError() {
-        Assert.assertEquals("CREATE EDGE worksIn UPSERT FROM (SELECT FROM Employee WHERE name = 'Darin') TO (SELECT FROM Company WHERE name = 'Sap labs Bulgaria')",
+        Assertions.assertThrows(AssertionError.class, () -> Assertions.assertEquals("CREATE EDGE worksIn UPSERT FROM (SELECT FROM Employee WHERE name = 'Darin') TO (SELECT FROM Company WHERE name = 'Sap labs Bulgaria')",
                 queryBuilder.withCreateClause().appendEdgeWord().appendEdge(WRONG_EDGE).withUpsertClause().withFromClause().appendOpenBracket()
                         .withSelectClause().withFromClause().appendVertex(MANAGER_VERTEX).withWhereClause().appendPropAndValue(WRONG_PROPERTY, WRONG_PROPERTY_VALUE)
                         .appendCloseBracket().appendToWord().appendOpenBracket().withSelectClause().withFromClause().appendVertex(COMPANY_VERTEX)
-                        .withWhereClause().appendPropAndValue(WRONG_PROPERTY, WRONG_PROPERTY_VALUE).appendCloseBracket().build());
+                        .withWhereClause().appendPropAndValue(WRONG_PROPERTY, WRONG_PROPERTY_VALUE).appendCloseBracket().build()));
     }
 
     @Test
     public void whenValidDataIsPassed_thenValidVertexQueryShouldBeReturned() {
-        Assert.assertEquals("UPDATE Employee SET name = 'Darin' UPSERT WHERE name = 'Darin'",
+        Assertions.assertEquals("UPDATE Employee SET name = 'Darin' UPSERT WHERE name = 'Darin'",
                 queryBuilder.withUpdateClause().appendVertex(EMPLOYEE_VERTEX).withSetClause().appendPropAndValue(PROPERTY, PROPERTY_VALUE)
                         .withUpsertClause().withWhereClause().appendPropAndValue(PROPERTY, PROPERTY_VALUE).build());
     }
 
-    @Test(expected = AssertionError.class)
+    @Test
     public void whenInvalidDataIsPassedToVertexQuery_thenExpectAssertionError() {
-        Assert.assertEquals("UPDATE Employee SET name = 'Darin' UPSERT WHERE name = 'Darin'",
+        Assertions.assertThrows(AssertionError.class, () -> Assertions.assertEquals("UPDATE Employee SET name = 'Darin' UPSERT WHERE name = 'Darin'",
                 queryBuilder.withUpdateClause().appendVertex(MANAGER_VERTEX).withSetClause().appendPropAndValue(WRONG_PROPERTY, WRONG_PROPERTY_VALUE)
-                        .withUpsertClause().withWhereClause().appendPropAndValue(WRONG_PROPERTY, WRONG_PROPERTY_VALUE).build());
+                        .withUpsertClause().withWhereClause().appendPropAndValue(WRONG_PROPERTY, WRONG_PROPERTY_VALUE).build()));
     }
 }

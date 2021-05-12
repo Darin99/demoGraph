@@ -1,19 +1,14 @@
-package com.example.demo;
+package com.example.demo.unitTests;
 
 import com.example.demo.dataModel.Person;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.ComparisonFailure;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
-@RunWith(SpringRunner.class)
 public class PersonClassTest {
 
     private Person person;
@@ -33,7 +28,7 @@ public class PersonClassTest {
     private static final List<String> PERSONS = new ArrayList<>();
     private static final List<String> WRONG_PERSONS = Arrays.asList("Simeon", "George");
 
-    @Before
+    @BeforeEach
     public void buildPerson() {
         person = new Person().builder().name(NAME).position(POSITION)
                 .company(COMPANY).team(TEAM).persons(PERSONS).build();
@@ -41,76 +36,76 @@ public class PersonClassTest {
 
     @Test
     public void whenValidNameIsPassed_thenItShouldBeReturned() {
-        Assert.assertEquals(NAME, person.getName());
+        Assertions.assertEquals(NAME, person.getName());
     }
 
-    @Test(expected = ComparisonFailure.class)
-    public void whenInvalidNameIsPassed_thenExpectComparisonFailureError() {
-        Assert.assertEquals(WRONG_NAME, person.getName());
+    @Test
+    public void whenInvalidNameIsPassed_thenExpectAssertionError() {
+        Assertions.assertThrows(AssertionError.class, () -> Assertions.assertEquals(WRONG_NAME, person.getName()));
     }
 
     @Test
     public void whenValidNameIsPassed_thenItShouldNotBeNull() {
-        Assert.assertNotNull(person.getName());
+        Assertions.assertNotNull(person.getName());
     }
 
     @Test
     public void whenValidPositionIsPassed_thenItShouldBeReturned() {
-        Assert.assertEquals(POSITION, person.getPosition());
+        Assertions.assertEquals(POSITION, person.getPosition());
     }
 
-    @Test(expected = ComparisonFailure.class)
-    public void whenInvalidPositionIsPassed_thenExpectComparisonFailureError() {
-        Assert.assertEquals(WRONG_POSITION, person.getPosition());
+    @Test
+    public void whenInvalidPositionIsPassed_thenExpectAssertionError() {
+        Assertions.assertThrows(AssertionError.class, () -> Assertions.assertEquals(WRONG_POSITION, person.getPosition()));
     }
 
     @Test
     public void whenValidPositionIsPassed_thenItShouldNotBeNull() {
-        Assert.assertNotNull(person.getPosition());
+        Assertions.assertNotNull(person.getPosition());
     }
 
     @Test
     public void whenValidCompanyIsPassed_thenItShouldBeReturned() {
-        Assert.assertEquals(COMPANY, person.getCompany());
+        Assertions.assertEquals(COMPANY, person.getCompany());
     }
 
-    @Test(expected = ComparisonFailure.class)
-    public void whenInvalidCompanyIsPassed_thenExpectComparisonFailureError() {
-        Assert.assertEquals(WRONG_COMPANY, person.getCompany());
+    @Test
+    public void whenInvalidCompanyIsPassed_thenExpectAssertionError() {
+        Assertions.assertThrows(AssertionError.class, () -> Assertions.assertEquals(WRONG_COMPANY, person.getCompany()));
     }
 
     @Test
     public void whenValidCompanyIsPassed_thenItShouldNotBeNull() {
-        Assert.assertNotNull(person.getCompany());
+        Assertions.assertNotNull(person.getCompany());
     }
 
     @Test
     public void whenValidTeamIsPassed_thenItShouldBeReturned() {
-        Assert.assertEquals(TEAM, person.getTeam());
+        Assertions.assertEquals(TEAM, person.getTeam());
     }
 
-    @Test(expected = ComparisonFailure.class)
-    public void whenInvalidTeamIsPassed_thenExpectComparisonFailureError() {
-        Assert.assertEquals(WRONG_TEAM, person.getTeam());
+    @Test
+    public void whenInvalidTeamIsPassed_thenExpectAssertionError() {
+        Assertions.assertThrows(AssertionError.class, () -> Assertions.assertEquals(WRONG_TEAM, person.getTeam()));
     }
 
     @Test
     public void whenValidTeamIsPassed_thenItShouldNotBeNull() {
-        Assert.assertNotNull(person.getTeam());
+        Assertions.assertNotNull(person.getTeam());
     }
 
     @Test
     public void whenValidPersonsArePassed_thenTheyShouldBeReturned() {
-        Assert.assertEquals(PERSONS, person.getPersons());
+        Assertions.assertEquals(PERSONS, person.getPersons());
     }
 
-    @Test(expected = AssertionError.class)
+    @Test
     public void whenInvalidPersonsArePassed_thenExpectAssertionError() {
-        Assert.assertEquals(WRONG_PERSONS, person.getPersons());
+        Assertions.assertThrows(AssertionError.class, () -> Assertions.assertEquals(WRONG_PERSONS, person.getPersons()));
     }
 
     @Test
     public void whenValidPersonsArePassed_thenTheyShouldNotBeNull() {
-        Assert.assertNotNull(person.getPersons());
+        Assertions.assertNotNull(person.getPersons());
     }
 }

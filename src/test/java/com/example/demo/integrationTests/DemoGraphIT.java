@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.integrationTests;
 
 import com.orientechnologies.orient.core.db.ODatabasePool;
 import com.orientechnologies.orient.core.db.ODatabaseSession;
